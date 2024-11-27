@@ -193,7 +193,7 @@ class EasyFit:
         Prints all information on the fit to the terminal.
 
         Args:
-            interpretation (bool, optional): Determines whether or not extra info about interpretaton is provided.
+            interpretation (bool, optional): Determines whether or not extra info about interpretation is provided. Defaults to False.
         """
         print('----------------------------------------------------------------------------------------------------------------')
         print(f"General information on the fit for model: {self.modelname}:")
@@ -300,3 +300,13 @@ class EasyFit:
         plt.legend()
         plt.tight_layout()
         plt.show()
+
+    def get_all_info(self, interpretation = False):
+        """
+        Shows all information of the fit. Including the plotted model.
+
+        Args:
+            interpretation (bool, optional): Determines whether or not extra info about interpretation is provided. Defaults to False.
+        """
+        self.get_general_fit_info(interpretation)
+        self.plot_model()
