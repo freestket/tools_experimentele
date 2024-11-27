@@ -23,7 +23,8 @@ Andere manieren om hetzelfde uit te voeren zijn:
 
 ### Initialisatie
 
-Bij het initialiseren (dus fit_object = Easyfit(...)) moet ervoor gezorgd worden dat de functie fit_model als parameters func(x, *args) heeft. Dit wil zeggen: eerst de variabelen, dan de te fitten parameters.\\
+Bij het initialiseren (dus fit_object = Easyfit(...)) moet ervoor gezorgd worden dat de functie fit_model als parameters func(x, *args) heeft. Dit wil zeggen: eerst de variabelen, dan de te fitten parameters.
+
 xdata en ydata zijn best normale python lijsten, en nog geen numpy arrays. Deze worden in de initialisatie omgezet naar numpy arrays.
 
 ### Functieoverzicht
