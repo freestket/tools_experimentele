@@ -58,8 +58,8 @@ class EasyFit:
         Returns:
             str: The final piece of string that gets printed to the terminal.
         """
-        self.get_general_fit_info(interpretation=False)
-        return "\n"
+        self.get_general_fit_info(interpretation=False) #print alle informatie op aparte regels
+        return "\n" #een enter om te eindigen. Een de functie moet iets returnen.
 
 
 
@@ -109,7 +109,7 @@ class EasyFit:
             Exception: If no statistic values were found. (i.e. statistic_values == None)
         """
         if not (getmethod_names == "Parameters" or getmethod_names == "Statistics"):
-            raise ValueError("parameter getmethod_names should equal \"Parameters\" or \"Statistics\".")
+            raise ValueError("Parameter getmethod_names should equal \"Parameters\" or \"Statistics\".")
         
         if not combined_info:
             print('----------------------------------------------------------------------------------------------------------------')
