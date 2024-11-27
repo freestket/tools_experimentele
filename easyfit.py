@@ -52,6 +52,12 @@ class EasyFit:
 
 
     def __str__(self) -> str:
+        """
+        Prints general info to the terminal when print(object) is run.
+
+        Returns:
+            str: The final piece of string that gets printed to the terminal.
+        """
         self.get_general_fit_info(interpretation=False)
         return "\n"
 
