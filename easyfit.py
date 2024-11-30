@@ -6,7 +6,7 @@ import inspect #Dien om de parameter namen uit de modelfunctie te halen.
 
 class EasyFit:
     """
-    A class that contains a model fot a set of data and uses this to calculate fit parameters and relevant statistics.
+    A class that contains a model fot a set of data and uses this to calculate fit parameters and relevant statistics using scipy curve_fit.
     """
 
 
@@ -146,7 +146,7 @@ class EasyFit:
         Returns:
             tuple: A tuple containing two dictionaries. Both dictionaries have the names of the parameters as keys. The values of the first dictionary are optimized parameter values. The values of the second dictionary are errors on the parameters.
         """
-        if self.popt == None:
+        if self.popt is None:
             self.calculate_fit_parameters()
 
         parameter_names = inspect.getfullargspec(self.model)[0][1:] #parameter namen ophalen vanuit het model, eerste element wordt weggesliced want dit is de variabele.
@@ -176,7 +176,7 @@ class EasyFit:
         Returns:
             dict: A dictionary with the names of the statistics as keys and the statistic values as values.
         """
-        if self.p_value == None:
+        if self.p_value is None:
             self.calculate_statistics()
 
         statistic_names = ["chi2_min", "chi2_red", "p-value"]
@@ -299,7 +299,7 @@ class EasyFit:
         ax.plot(x_linspace, self.model(x_linspace, *self.popt),
                 label="model", color="red", linestyle="--")
         
-        ax.set_title(f"Fit for model of {self.modelname}")
+        ax.set_title(f"Fit voor model van {self.modelname}")
         ax.set_xlabel(self.xlabel)
         ax.set_ylabel(self.ylabel)
         
