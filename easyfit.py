@@ -10,22 +10,24 @@ class EasyFit:
     """
 
 
-    def __init__(self, model: callable, modelname: str, xdata: list, ydata: list, xlabel: str, ylabel: str, y_err: list = None, x_err: list = None) -> None:
+    def __init__(self, model: callable, graf_title: str, xdata: list, ydata: list, xlabel: str, ylabel: str, y_err: list = None, x_err: list = None, p0 = None, bounds = None) -> None:
         """
         Creates the object with a set of data and a model.
 
         Args:
             model (function(x, *args)): A function of x that will be used to fit to the data.
-            modelname (str): Name of the model used to fit. This will be used for the plot title.
+            graf_title (str): Title of the plotted graph.
             xdata (list): List of x-values for datapoints.
             ydata (list): List of y-values for datapoints.
             xlabel (str): X-axis label for the plot.
             ylabel(str): Y-axis label for the plot.
             y_err (list, optional): A list of y-value erorrs for datapoints. Defaults to None.
             x_err (list, optional): List of x-value errors fot datapoints. Defaults to None.
+            p0 (list, optional): Initial guess for the fit parameters. Defaults to None
+            bounds(tuple(list), optional): Bounds for the fit parameters. Defautls to None.
         """
         self.model = model
-        self.modelname = modelname
+        self.graf_title = graf_title
         self.xdata = np.array(xdata) #omzetten naar np.array want veel functies doen moeilijk bij gewone python lists
         self.ydata = np.array(ydata)
         self.xlabel = xlabel
@@ -39,12 +41,15 @@ class EasyFit:
         self.chi2_reduced = None
         self.p_value = None
 
-        if y_err == None:
+        self.p0 = p0
+        self.bounds = bounds
+
+        if y_err is None:
             self.y_err = np.array([y*0.01 for y in ydata]) #Default 1% error
         else:
             self.y_err = np.array(y_err)
 
-        if x_err == None:
+        if x_err is None:
             self.x_err = np.array([x*0.01 for x in xdata]) #Default 1% error
         else:
             self.x_err = np.array(x_err)
@@ -67,7 +72,19 @@ class EasyFit:
         """
         Calculates the optimal parameters to fit the model to the data.
         """
-        popt, pcov = curve_fit(self.model, self.xdata, self.ydata, sigma=self.y_err, absolute_sigma=True) #absolute_sigma zou ervoor zorgen dat het goed werkt met de fout
+        
+        if self.p0 is None and self.bounds is None:
+            popt, pcov = curve_fit(self.model, self.xdata, self.ydata, sigma=self.y_err, absolute_sigma=True) #absolute_sigma zou ervoor zorgen dat het goed werkt met de fout
+
+        elif self.p0 is None:
+            popt, pcov = curve_fit(self.model, self.xdata, self.ydata, bounds=self.bounds, sigma=self.y_err, absolute_sigma=True)
+
+        elif self.bounds is None:
+            popt, pcov = curve_fit(self.model, self.xdata, self.ydata, p0=self.p0, sigma=self.y_err, absolute_sigma=True)
+           
+        else:
+            popt, pcov = curve_fit(self.model, self.xdata, self.ydata, p0=self.p0, bounds=self.bounds, sigma=self.y_err, absolute_sigma=True)
+
         perr = np.sqrt(np.diag(pcov)) #dit is hoe de fout volgens internet berekend wordt, nog altijd niet zeker hoe dit werkt
 
         self.popt = popt
@@ -116,7 +133,7 @@ class EasyFit:
         else:
             print()
 
-        print(f"{getmethod_names} for fit with model {self.modelname}:\n")
+        print(f"{getmethod_names} for fit: {self.graf_title}:\n")
 
         for i in range(len(getmethod_list_names)):
 
@@ -202,7 +219,7 @@ class EasyFit:
             interpretation (bool, optional): Determines whether or not extra info about interpretation is provided. Defaults to False.
         """
         print('----------------------------------------------------------------------------------------------------------------')
-        print(f"General information on the fit for model: {self.modelname}:")
+        print(f"General information for the fit: {self.graf_title}:")
 
         _, __ = self.get_fit_parameters(print_values=True, combined_info=True)
 
@@ -299,7 +316,7 @@ class EasyFit:
         ax.plot(x_linspace, self.model(x_linspace, *self.popt),
                 label="model", color="red", linestyle="--")
         
-        ax.set_title(f"Fit voor model van {self.modelname}")
+        ax.set_title(self.graf_title)
         ax.set_xlabel(self.xlabel)
         ax.set_ylabel(self.ylabel)
         
