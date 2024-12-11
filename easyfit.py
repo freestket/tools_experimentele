@@ -6,7 +6,7 @@ import inspect #Dien om de parameter namen uit de modelfunctie te halen.
 
 class EasyFit:
     """
-    A class that contains a model fot a set of data and uses this to calculate fit parameters and relevant statistics using scipy curve_fit.
+    A class that contains a model for a set of data and uses this to calculate fit parameters and relevant statistics using scipy curve_fit.
     """
 
 
@@ -41,7 +41,7 @@ class EasyFit:
         self.chi2_reduced = None
         self.p_value = None
 
-        self.p0 = p0
+        self.p0 = p0 #ken p0 en bounds toe, deze zijn ofwel None of hebben een lisjt/tuple toegekend
         self.bounds = bounds
 
         if y_err is None:
@@ -64,7 +64,7 @@ class EasyFit:
             str: The final piece of string that gets printed to the terminal.
         """
         self.get_general_fit_info(interpretation=False) #print alle informatie op aparte regels
-        return "\n" #een enter om te eindigen. Een de functie moet iets returnen.
+        return "\n" #een enter om te eindigen. En de functie moet iets returnen.
 
 
 
@@ -85,7 +85,7 @@ class EasyFit:
         else:
             popt, pcov = curve_fit(self.model, self.xdata, self.ydata, p0=self.p0, bounds=self.bounds, sigma=self.y_err, absolute_sigma=True)
 
-        perr = np.sqrt(np.diag(pcov)) #dit is hoe de fout volgens internet berekend wordt, nog altijd niet zeker hoe dit werkt
+        perr = np.sqrt(np.diag(pcov)) #dit is hoe de fout volgens internet berekend wordt, nog altijd niet zeker hoe dit werkt (wiskundig gezien)
 
         self.popt = popt
         self.pcov = pcov
@@ -97,8 +97,8 @@ class EasyFit:
         """
         Calculates $\chi_{min}^2$, $\chi_{red}^2$ and p-value for the fit.
         """
-        residuals = self.ydata - self.model(self.xdata, *self.popt)
-        chi2_min = np.sum((residuals / self.y_err)**2)
+        residuals = self.ydata - self.model(self.xdata, *self.popt) #ik heb honestly echt mijn twijfels of deze methode uberhaupt correct is.
+        chi2_min = np.sum((residuals / self.y_err)**2) #is dit een scam?
 
         dof = len(self.ydata) - len(self.popt) #vrijheidsgraden
         chi2_reduced = chi2_min / dof
