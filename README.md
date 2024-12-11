@@ -12,9 +12,11 @@ Of je gebruikt:
                 sys.path.append("C:/users/.../omvattende_folder")
                 from easyfit import EasyFit
 
+(Side note: Ik heb nog nooit getest of dit werkt op Windows.)
+
 Voor gebruik voldoet de volgende code:
 
-                fit_object = EasyFit(fit_model, "Model naam", 
+                fit_object = EasyFit(fit_model, "Titel voor grafiek", 
                                      xdata, ydata, 
                                      "$x$ [eenheid]", "$y$ [eenheid]", 
                                      y_err=yerr, x_err=xerr,
@@ -24,10 +26,11 @@ Voor gebruik voldoet de volgende code:
                 fit_object.plot_model()
 
 y_err, x_err, p0 en bounds kunnen weggelaten worden, dan gebruiken de functies een fout van 1% op alle datapunten en geen initiële gok of grenzen voor de parameters.
+De bounds zijn grenzen op de waarden van de parameters die gefit gaan worden. Deze gaat niet vaak nodig zijn, maar is bijvoorbeeld handig om grootheden positief te houden.
 
 Andere manieren om hetzelfde uit te voeren zijn:
 
-                fit_object = EasyFit(fit_model, "Model naam", 
+                fit_object = EasyFit(fit_model, "Titel voor grafiek", 
                                      xdata, ydata, 
                                      "$x$ [eenheid]", "$y$ [eenheid]", 
                                      y_err=yerr, x_err=xerr,
@@ -38,9 +41,39 @@ Andere manieren om hetzelfde uit te voeren zijn:
 
 ### Initialisatie
 
-Bij het initialiseren (dus fit_object = Easyfit(...)) moet ervoor gezorgd worden dat de functie fit_model als parameters func(x, *args) heeft. Dit wil zeggen: eerst de variabelen, dan de te fitten parameters.
+                fit_object = EasyFit(model: callable, graf_title: str,
+                                     xdata: list, ydata: list,
+                                     xlabel:str, ylabel:str,
+                                     y_err: list = None, x_err: list = None,
+                                     p0 = None, bounds = None)
 
-xdata en ydata zijn best normale python lijsten, en nog geen numpy arrays. Deze worden in de initialisatie omgezet naar numpy arrays.
+#### model: callable
+
+Bij het initialiseren (dus fit_object = EasyFit(...)) moet ervoor gezorgd worden dat de functie fit_model als parameters func(x, *args) heeft. Dit wil zeggen: eerst de variabelen, dan de te fitten parameters.
+
+#### graf_title: str
+
+De title die boven de grafiek terecht komt.
+
+#### xdata: list, ydata: list
+
+xdata en ydata zijn best normale python lijsten, en nog geen numpy arrays. Deze worden in de initialisatie omgezet naar numpy arrays zodat alle functies deftig kunnen werken.
+
+#### xlabel: str, ylabel: str
+
+De labels die op de assen van de grafiek gezet worden.
+
+#### y_err: list = None, x_err: list = None
+
+De fouten op ydata en xdata, dit zijn best ook python lijsten. Ze worden binnen de klasse omgezet naar numpy arrays. Indien er geen fouten meegegeven worden in de initialisatie gebruikt de klasse een fout van 1% op elke meting.
+
+#### p0 = None, bounds = None
+
+p0 is de initiële gok van parameters. Voor een lineaire fit: $y = ax + b$ zijn de parameters a en b. Dan kun je een initële gok p0 = [2, 0.001] meegeven. Let op dat de volgorde van parameters dezelfde volgorde is als hoe ze gedefiniëerd zijn in het model. Bv.: model(x, a, b) voor de lineaire fit.
+p0 kan ook leeg gelaten worden en dan gebruiken de functies geen initiële gok.
+
+bounds stelt grenzen in op de te fitten parameters. Het is een tuple van twee lijsten. Dus bijvoorbeeld voor de lineaire fit: bounds = ([$a_{min}$, $b_{min}$], [$a_{max}$, $b_{max}$])
+Als bounds leeg gelaten word, dan kunnen de parameters een der welke waarde aannemen tijdens het fitten.
 
 ### Functieoverzicht
 
@@ -54,6 +87,14 @@ De class heeft volgende functies:
 - get_interpretation_info(combined_info) -> eigenlijk alleen het laatste stukje van bovenstaande functie.
 - plot_model() -> plot de datapunten en de fit
 - get_all_info(interpretation) -> een combinatie van plot_model() en get_general_fit_info(interpretation).
+
+#### Frequent te gebruiken functies
+
+##### get_general_fit_info(interpretation = False)
+
+##### plot_model()
+
+##### get_all_info(interpretation = False)
 
 ### Frequent Gebruik
 
