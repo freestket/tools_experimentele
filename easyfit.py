@@ -309,7 +309,7 @@ class EasyFit:
         ax.errorbar(self.xdata, self.ydata, yerr=self.y_err, xerr=self.x_err,
                     
                     label="datapunten", fmt=" ", marker="o", color="black", ecolor="black", markersize=1.5, capsize=2, capthick=0.5, elinewidth=0.5)
-        #capthick = capsize/4; markersize = capsize (/2); elinewidth = capsize/4
+        #capthick = capsize/4; markersize = capsize (/2); elinewidth = capsize/4; dit moet ik mss ooit nog eens automatiseren voor mooie layout
         
         x_linspace = np.linspace(0.90*np.min(self.xdata), 1.10*np.max(self.xdata), 600)
         
