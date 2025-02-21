@@ -50,6 +50,16 @@ Andere manieren om hetzelfde uit te voeren zijn:
 #### model: callable
 
 Bij het initialiseren (dus fit_object = EasyFit(...)) moet ervoor gezorgd worden dat de functie fit_model als parameters func(x, *args) heeft. Dit wil zeggen: eerst de variabelen, dan de te fitten parameters.
+Dit ziet er dan bijvoorbeeld als volgt uit:
+
+                def model(x, a, b, c):
+                    return a*x**2 + b*x + c
+
+Het volgende zal dus NIET werken:
+
+                def model(x, params):
+                    a, b, c = params
+                    return a*x**2 + b*x + c
 
 #### graf_title: str
 
