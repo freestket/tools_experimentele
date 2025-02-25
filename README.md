@@ -108,3 +108,32 @@ De class heeft volgende functies:
 
 ### Frequent Gebruik
 
+## easylatex.py
+
+### generate_latex_table(data, table_header, caption_text, label_text)
+
+#### data
+
+Data is een lijst die in elk element een columns (andere lijst) van de tabel opslaagt.
+Dus:
+
+                data = [kolom_1, kolom_2, kolom_3, ..., kolom_n]
+
+Hierbij wordt elke kolom_i dan een kolom in de tabel.
+
+#### table_header
+
+Dit geeft de "header" van de tabel. Elk element van deze lijst is de header voor één enkele kolom. Dus bijvoorbeeld:
+
+                header = ["$f$ [Hz]", "$|x|$ [mm] $\pm 1\%", "$\phi$ [$^\circ$] $\pm 5\%$"]
+
+Merk hierbij op dat symbolen zoals '$', '\' en '%' vaak ook andere functies in Python hebben. Het is daarom nodig om te checken of Python deze symbolen effectief als string interpreteert. Hier kan vaak voor gezorgd worden door "\" toe te voegen voor het symbool waar dat nodig is. Bv.: "\%", "\\" of "\%".
+
+#### caption_text
+
+Dit is de tekst die getoond wordt onder de tabel.
+
+#### label_text
+
+Dit is de tekst die voor de label gebruikt gaat worden. De label dient voor te referen naar de tabel met "\ref{tab:tabel_label}"
+Het programma gaat ervoor zorgen dat de label van de tabel dan wordt: "tab:label_text", waarbij 'label_text' de invoer naar de functie is.
