@@ -90,7 +90,7 @@ Als bounds leeg gelaten word, dan kunnen de parameters een der welke waarde aann
 De class heeft volgende functies:
 - calculate_fit_parameters() -> voert de curve_fit uit voor dit object. Eigenlijk niet zo belangrijk om zelf te gebruiken.
 - calculate_statistics() -> berekent statistieken. Net zoals hierboven ook niet enorm belangrijk.
-- __print_method_info__() -> Dit is voor intern bedoelt. Boeit dus ook niet echt.
+- \__print_method_info__() -> Dit is voor intern bedoelt. Boeit dus ook niet echt.
 - get_fit_parameters(print_values, combined_info) -> Returned de berekende parameters en hun lijsten in 2 dictionaries. print_values = True zorgt ervoor dat alles ook in de terminal geprint wordt. combined_info is irrelevant en dient enkel voor de interen werking van de functie.
 - get_statistic(print_values, combined_info) -> werkt analoog zoals bovenstaand functie
 - get_general_fit_info(interpretation) -> BELANGRIJK! Dit is een combinatie van de twee bovenstaande functies. Indien interpretation = True dan geeft hij ook uitleg in de terminal over hoe de statistieken geïnterpreteerd moeten worden. (Absoluut niet van Mathias gestolen). LET OP: Deze functie returned niets!
