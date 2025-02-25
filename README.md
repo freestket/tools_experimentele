@@ -127,7 +127,7 @@ Dit geeft de "header" van de tabel. Elk element van deze lijst is de header voor
 
                 header = ["$f$ [Hz]", "$|x|$ [mm] $\pm 1\%", "$\phi$ [$^\circ$] $\pm 5\%$"]
 
-Merk hierbij op dat symbolen zoals '$', '\' en '%' vaak ook andere functies in Python hebben. Het is daarom nodig om te checken of Python deze symbolen effectief als string interpreteert. Hier kan vaak voor gezorgd worden door "\" toe te voegen voor het symbool waar dat nodig is. Bv.: "\\%", "\\" of "\dollar".
+Merk hierbij op dat symbolen zoals '$', '\' en '%' vaak ook andere functies in Python hebben. Het is daarom nodig om te checken of Python deze symbolen effectief als string interpreteert. Hier kan vaak voor gezorgd worden door "\\" toe te voegen voor het symbool waar dat nodig is. Bv.: "\\%", "\\\\" of "\dollar".
 
 #### caption_text
 
