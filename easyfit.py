@@ -45,12 +45,12 @@ class EasyFit:
         self.bounds = bounds
 
         if y_err is None:
-            self.y_err = np.array([y*0.01 for y in ydata]) #Default 1% error
+            self.y_err = np.array([np.abs(y)*0.01 for y in ydata]) #Default 1% error
         else:
             self.y_err = np.array(y_err)
 
         if x_err is None:
-            self.x_err = np.array([x*0.01 for x in xdata]) #Default 1% error
+            self.x_err = np.array([np.abs(x)*0.01 for x in xdata]) #Default 1% error
         else:
             self.x_err = np.array(x_err)
 
