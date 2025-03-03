@@ -50,7 +50,7 @@ def generate_latex_table(data, table_header, caption_text, label_text) -> str:
     for i in range(len(data[0])):
         new_line = "\t\t"
         for col in data:
-            new_line += col[i]
+            new_line += str(col[i])
             if data.index(col) < data.index(data[len(data)-1]):
                 new_line += " & "
             else:
@@ -61,7 +61,5 @@ def generate_latex_table(data, table_header, caption_text, label_text) -> str:
     latex_table += "\t\end{tabular}\n"
     latex_table += f"\t\label{label_string}\n"
     latex_table += "\end{table}\n"
-
-    print(latex_table)
 
     return latex_table
