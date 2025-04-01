@@ -7,6 +7,10 @@ import inspect #Dien om de parameter namen uit de modelfunctie te halen.
 class EasyFit:
     """
     A class that contains a model for a set of data and uses this to calculate fit parameters and relevant statistics using scipy curve_fit.
+
+    TODO:
+        Add function to request figure to be able to edit the created plot.
+        Add function to draw fit onto already existing figures.
     """
 
 

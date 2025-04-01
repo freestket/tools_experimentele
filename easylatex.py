@@ -1,4 +1,9 @@
+"""_
+A package contain useful tools to make the transition from data/software to LaTeX easier
 
+TODO:
+    Check/finish documentation
+"""
 
 
 def generate_latex_table(data, table_header, caption_text, label_text) -> str:
