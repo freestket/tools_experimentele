@@ -9,10 +9,8 @@ Om dit te importeren moet dit in dezelfde folder staan.
 Of je gebruikt:
 
                 import sys
-                sys.path.append("C:/users/.../omvattende_folder")
+                sys.path.append("..")
                 from easyfit import EasyFit
-
-(Side note: Ik heb nog nooit getest of dit werkt op Windows.)
 
 Voor gebruik voldoet de volgende code:
 
