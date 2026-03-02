@@ -328,6 +328,41 @@ class EasyFit:
         plt.tight_layout()
         plt.show()
 
+
+
+    def get_model_plot(self):
+        """
+        Returns the figure and axes objects of the plotted model. This allows for further editing of the plot.
+
+        Returns:
+            tuple: A tuple containing the figure and axes objects of the plotted model.
+        """
+        if self.popt is None:
+            self.calculate_fit_parameters()
+
+        fig, ax = plt.subplots(ncols=1, nrows=1, dpi=120)
+
+        ax.errorbar(self.xdata, self.ydata, yerr=self.y_err, xerr=self.x_err,
+                    
+                    label="datapunten", fmt=" ", marker="o", color="black", ecolor="black", markersize=1.5, capsize=2, capthick=0.5, elinewidth=0.5)
+        #capthick = capsize/4; markersize = capsize (/2); elinewidth = capsize/4; dit moet ik mss ooit nog eens automatiseren voor mooie layout
+        
+        x_linspace = np.linspace(0.90*np.min(self.xdata), 1.10*np.max(self.xdata), 600)
+        
+        ax.plot(x_linspace, self.model(x_linspace, *self.popt),
+                label="model", color="red", linestyle="--")
+        
+        ax.set_title(self.graf_title)
+        ax.set_xlabel(self.xlabel)
+        ax.set_ylabel(self.ylabel)
+        
+        plt.legend()
+        plt.tight_layout()
+
+        return fig, ax
+
+
+
     def get_all_info(self, interpretation = False):
         """
         Shows all information of the fit. Including the plotted model.
